@@ -68,16 +68,16 @@
 
 
     $.get("/api", function(data) {
-      
+      console.log(data);
       for (var i = 0; i < data.length; i++) {
         var wellSection = $("<div>" + data[i] + "</div>" );
         if (i < 5){
 
-        $("#tableSection").append("<h2>"+data[i].customerName+"</h2><p>Your table number is "+(i+1)+".");
+        $("#tableSection").append("<h2>"+data[i].name+"</h2><p>Your table number is "+(i+1)+".");
 
       }
       else {
-      $("#waitlistSection").append("<h2>"+data[i].customerName+"</h2><p>Your table number is "+(i+1)+".");
+      $("#waitlistSection").append("<h2>"+data[i].name+"</h2><p>Your table number is "+(i+1)+".");
 
     }
       } 

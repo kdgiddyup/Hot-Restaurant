@@ -1,6 +1,14 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var mysql = require("mysql");
+var connection = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "SqlDatabaseRoot",
+    database: "hotrestaurantDB"
+})
 
 var app = express();
 var PORT = 8080;
@@ -16,6 +24,19 @@ app.use(bodyParser.json({
 
 
 var reservation = [];
+connection.connect(function(err){
+    if (err) throw err;
+});
+sql = "SELECT * FROM customers";
+connection.query(sql, function(err, res) {
+        if (err) 
+            console.log(err)
+        else {
+            reservation = res;
+            console.log("array");
+            console.log(reservation);
+        }
+    });
 
 
 app.get("/index", function (req, res) {
@@ -54,9 +75,17 @@ app.get("/api/:type?", function (req, res) {
 
 app.post("/api/new", function (req, res) {
     var newReservation = req.body;
+    var sql = "INSERT INTO customers(id,name,email,phone) VALUES ?";
+    inserts = [newReservation.id,newReservation.customerName,newReservation.customerEmail,newReservation.phoneNumber];
+    sql = mysql.format(sql,inserts);
+    connection.query(sql, function(err, res) {
+            if (err) 
+                console.log(err)
+        });
 
 
     reservation.push(newReservation);
+    
     res.json(reservation.length);
 
 });
