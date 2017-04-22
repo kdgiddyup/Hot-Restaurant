@@ -32,6 +32,27 @@
 
 	</div>
 
+<script type = "text/javascript">
+    // table list API call
+    function tableList(){
+        var ourURL = window.location.origin;
+        $.ajax({url: ourURL + "/api/tables", method: "GET"})
+                .done(function(tableData) {
+                // code to display tableData
+                });
+    }
+
+    // waitlist API call
+    function waitList(){
+        var ourURL = window.location.origin;
+        $.ajax({url: ourURL + "/api/waitlist", method: "GET"})
+                .done(function(waitData) {
+                // code to display waitData);
+    });
+    }    
+
+    $("")
+</script>
 
   
 </body>
