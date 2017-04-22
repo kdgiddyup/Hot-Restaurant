@@ -75,9 +75,11 @@ app.get("/api/:type?", function (req, res) {
 
 app.post("/api/new", function (req, res) {
     var newReservation = req.body;
-    var sql = "INSERT INTO customers(id,name,email,phone) VALUES ?";
-    inserts = [newReservation.id,newReservation.customerName,newReservation.customerEmail,newReservation.phoneNumber];
+    console.log(newReservation);
+    var sql = "INSERT INTO customers(id,name,email,phone) VALUES (?)";
+    inserts = [[newReservation.customerID,newReservation.customerName,newReservation.customerEmail,newReservation.phoneNumber]];
     sql = mysql.format(sql,inserts);
+    console.log(sql);
     connection.query(sql, function(err, res) {
             if (err) 
                 console.log(err)
